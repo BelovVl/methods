@@ -12,7 +12,7 @@ public class Main {
     }
 
     public static String checkVerPril(int clientDeviceYear, byte clientOS) {
-        int currentYear= LocalDate.now().getYear();
+        int currentYear = LocalDate.now().getYear();
         String checkVerPril = " ";
         if ((clientDeviceYear < currentYear) && (clientOS == 0)) {
             checkVerPril = "Установите облегченную версию приложения для iOS по ссылке";
