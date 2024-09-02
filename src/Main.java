@@ -1,34 +1,34 @@
+import java.time.LocalDate;
+
 public class Main {
     public static String checkLeapYear(int year) {
-        String checkLeapYear = "  год не является високосным";
-        if (year - 1584 <= 0) {
-            checkLeapYear = " год должен быть больше, чем 1584";
-        } else if ((year % 4 == 0 || year % 100 == 0) && (year % 400 != 0)) {
-            checkLeapYear = " год является високосным";
+        String checkLeapYear = " ";
+        if ((year % 4 == 0 || year % 100 == 0) && (year % 400 != 0)) {
+            checkLeapYear = " год - високосный год";
+        } else {
+            checkLeapYear = " год - не високосный год";
         }
         return checkLeapYear;
     }
 
-    public static String checkVerPril(int year, byte clientOS) {
-        String checkVerPril = "";
-        if (year <= 2015) {
-            if (clientOS == 0) {
-                checkVerPril = "Установите облегченную версию приложения для iOS по ссылке";
-            } else {
-                checkVerPril = "Установите облегченную версию приложения для Android по ссылке";
-            }
-        } else {
-            if (clientOS == 0) {
-                checkVerPril = "Установите версию приложения для iOS по ссылке";
-            } else {
-                checkVerPril = "Установите версию приложения для Android по ссылке";
-            }
+    public static String checkVerPril(int clientDeviceYear, byte clientOS) {
+        int currentYear= LocalDate.now().getYear();
+        String checkVerPril = " ";
+        if ((clientDeviceYear < currentYear) && (clientOS == 0)) {
+            checkVerPril = "Установите облегченную версию приложения для iOS по ссылке";
+        } else if ((clientDeviceYear >= currentYear) && (clientOS == 0)) {
+            checkVerPril = "Установите версию приложения для iOS по ссылке";
+        }
+        if ((clientDeviceYear < currentYear) && (clientOS == 1)) {
+            checkVerPril = "Установите облегченную версию приложения для Android по ссылке";
+        } else if ((clientDeviceYear >= currentYear) && (clientOS == 1)) {
+            checkVerPril = "Установите версию приложения для Android по ссылке";
         }
         return checkVerPril;
     }
 
-    public static String calCountOfDays(byte distance) {
-        String day = "";
+    public static String calculateDeliveryDays(byte distance) {
+        String day = " ";
         if (distance < 20) {
             day = "1";
         } else if (distance >= 20 && distance < 60) {
@@ -47,11 +47,11 @@ public class Main {
         int year = 2024;
         System.out.println(year + checkLeapYear(year));
         System.out.println("Задание 2");
-        int clientDeviceYear = 2015;
-        byte clientOS = 0;
+        int clientDeviceYear = 2010;
+        byte clientOS = 1;
         System.out.println(checkVerPril(clientDeviceYear, clientOS));
         System.out.println("Задание 3");
         byte deliveryDistance = 50;
-        System.out.println("Потребуется дней: " + calCountOfDays(deliveryDistance));
+        System.out.println("Потребуется дней: " + calculateDeliveryDays(deliveryDistance));
     }
 }
